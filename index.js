@@ -33,9 +33,13 @@ exports.send = function (token, params, callback) {
             auth: oauth,
             userId: 'me',
             resource: {
-                raw: base64EncodedEmail
+                raw: base64EncodedEmail,
             }
         };
+
+        if (params.threadId) {
+            reqParams.resource.threadId = params.threadId;
+        }
 
         gmail.users.messages.send(reqParams, null, function (err, resp) {
             if (!err) {
@@ -47,5 +51,3 @@ exports.send = function (token, params, callback) {
         });
     });
 };
-
-
